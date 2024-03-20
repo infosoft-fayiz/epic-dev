@@ -10,17 +10,24 @@ export const PaymentScreenRisk = (PaymentScreen) =>
 			this.paymentMethodsFromConfigBase = this.payment_methods_from_config;
 			this.paymentMethodsUnlock = [];
 			this.paymentMethodsLock = [];
-			this.updatePaymentMethod();
+			// this.updateCreditPaymentMethod();
+			this.updateCashPaymentMethod();
 		}
 
-		async selectPartner() {
-			await super.selectPartner();
-			await this.updatePaymentMethod();
-		}
+		async _onClickPay() {
+            await super._onClickPay()
+            await this.updateCashPaymentMethod()
+        }
 
-		updatePaymentMethod() {
+		// async selectPartner() {
+		// 	await super.selectPartner();
+		// 	await this.updateCreditPaymentMethod();
+		// }
+
+		updateCreditPaymentMethod() {
 			const order = this.currentOrder;
 			const partner = order.partner;
+
 			if(!partner)
 			{
 				this.paymentMethodsUnlock = this.paymentMethodsFromConfigBase;
@@ -61,6 +68,46 @@ export const PaymentScreenRisk = (PaymentScreen) =>
 				this.render(true);
 			});
 		}
+
+        updateCashPaymentMethod() {
+			const order = this.currentOrder;
+            const orderLines = order.orderlines;
+
+			for (let line of orderLines){
+				
+				if (line.product.cash_item){
+					this.paymentMethodsUnlock = this.paymentMethodsFromConfigBase.filter(
+						paymentMethod => paymentMethod['name'] == 'Cash'
+					)
+					this.render(true)
+					return;
+				}
+			}
+			if (order.partner){
+				this.updateCreditPaymentMethod()
+				this.render(true)
+				return;
+			}
+			this.paymentMethodsUnlock = this.paymentMethodsFromConfigBase
+
+            // orderLines.forEach( line => {
+            //         if (line.product.cash_item) {
+			// 			this.paymentMethodsUnlock = []
+            //             this.paymentMethodsUnlock = this.paymentMethodsFromConfigBase.filter(
+            //                 paymentMethod => paymentMethod['name'] == 'Cash'
+            //             )
+            //         }
+            //         else {
+			// 			if (order.partner){
+			// 				this.updateCreditPaymentMethod()}
+			// 			else{
+            //             	this.paymentMethodsUnlock = this.paymentMethodsFromConfigBase}
+            //         }
+            //     }
+            // )
+
+            this.render(true)
+        }
 	}
 
 Registries.Component.extend(PaymentScreen, PaymentScreenRisk)

@@ -7,7 +7,7 @@
         >
             <attribute name="t-foreach">paymentMethodsUnlock</attribute>
         </xpath>
-        <xpath expr="//div[hasclass('paymentmethods')]" position="after">
+        <!-- <xpath expr="//div[hasclass('paymentmethods')]" position="after">
             <div class="paymentmethods" t-if="paymentMethodsLock.length > 0">
                 <p class="title-category">Blocked due to credit limit reached</p>
                 <t
@@ -22,8 +22,8 @@
                     </div>
                 </t>
             </div>
-        </xpath>
-        <xpath
+        </xpath> -->
+        <!-- <xpath
             expr="//div[hasclass('payment-buttons')]/div[hasclass('partner-button')]/div[hasclass('button')]"
             position="attributes"
         >
@@ -36,6 +36,6 @@
             expr="//div[hasclass('payment-buttons')]/div[hasclass('partner-button')]//t[@t-esc='partner.name']"
             position="after"
         >
-        </xpath>
+        </xpath> -->
     </t>
 </templates>

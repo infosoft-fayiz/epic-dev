@@ -15,13 +15,14 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
+        'views/ci_product_view.xml',
         'views/pos_payment_method_views.xml',
         'views/res_config_settings_views.xml',       
     ],
     'assets':{
         'point_of_sale.assets':[
-            'epic_pos_dev/static/src/js/*.js',
-            'epic_pos_dev/static/src/xml/*.xml',
+            'epic-pos-dev/static/src/js/*.js',
+            'epic-pos-dev/static/src/xml/*.xml',
             # 'epic_pos_dev/static/src/scss/*.scss',
         ],
     },
